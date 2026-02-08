@@ -508,9 +508,12 @@ async function sendOrder() {
             const list = document.getElementById('admin-bills-list');
             list.innerHTML = readyToPrint.map(o => {
 let items = [];
-    try { 
-        items = JSON.parse(o.order_status); // item_name ki jagah order_status
-    } catch(e) { items = []; }
+try { 
+    // Check karein ki status null toh nahi hai
+    items = o.order_status ? JSON.parse(o.order_status) : []; 
+} catch(e) { 
+    items = []; 
+}
                 
                 return `
                 <div class="bg-white p-6 rounded-[32px] border border-zinc-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center animate-fade gap-4">
